@@ -3,7 +3,7 @@
 后续更新方向：
 前后端分离，前端采用Vue.js，后端将继续使用这个项目的更新版本，django 开发，使用RESTful API，创建单页面应用。
 
-
+![image](https://github.com/yangguohuan/volunteer_club/blob/main/static/media/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-21%20234022.png)
 
  志愿者活动网站
 
