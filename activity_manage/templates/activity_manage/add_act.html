@@ -1,0 +1,49 @@
+{% extends 'user_manage/base.html' %}
+
+{% block title %}
+    <title>添加活动</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">添加活动</h1>
+    <form action="{% url 'activity_manage:add' %}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+        {% csrf_token %}
+        
+        <!-- 标题 -->
+        <div class="mb-3">
+            <label for="title" class="form-label">活动标题</label>
+            <input type="text" id="title" name="title" class="form-control" placeholder="请输入活动标题" required>
+            <div class="invalid-feedback">活动标题不能为空。</div>
+        </div>
+
+        <!-- 内容 -->
+        <div class="mb-3">
+            <label for="content" class="form-label">活动内容</label>
+            <textarea id="content" name="content" class="form-control" rows="4" placeholder="请输入活动内容" required></textarea>
+            <div class="invalid-feedback">活动内容不能为空。</div>
+        </div>
+
+        <!-- 图片上传 -->
+        <div class="mb-3">
+            <label for="pic" class="form-label">上传图片</label>
+            <input type="file" id="pic" name="pic" class="form-control">
+        </div>
+
+        <!-- 活动时间 -->
+        <div class="mb-3">
+            <label for="act_time" class="form-label">活动时间</label>
+            <input type="datetime-local" id="act_time" name="act_time" class="form-control" required>
+            <div class="invalid-feedback">请选择活动时间。</div>
+        </div>
+
+        <!-- 提交按钮 -->
+        <div class="text-center">
+            <button type="submit" class="btn btn-success btn-lg w-100">添加活动</button>
+        </div>
+    </form>
+</div>
+
+
+{% endblock content %}
+

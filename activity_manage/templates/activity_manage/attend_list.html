@@ -1,0 +1,69 @@
+{% extends 'user_manage/base.html' %}
+
+{% block title %}
+    <title>已报名的活动</title>
+    
+
+{% endblock title %}
+
+{% block content %}
+
+
+<style>
+    .text-multi-truncate {
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* 限制显示两行 */
+        line-clamp: 2; /* 标准属性 */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+
+<div class="container-fluid mt-5">
+    <h2 class="mb-4">已报名的活动</h2>
+    <div class="list-group">
+        {% for a in attend_list %}
+            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center shadow-sm mb-2">
+                <div class="flex-grow-1">
+                    <h5 class="mb-1 text-multi-truncate">{{ a.act.title }}</h5>
+                    <p class="mb-1 text-muted text-multi-truncate">{{ a.act.content }}</p>
+                    <small class="text-success">报名人：{{ a.user.username }}</small>
+                </div>
+                <form action="{% url 'activity_manage:cancel_attend' act_id=a.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-outline-success btn-sm" value="不参加了">
+                </form>
+            </a>
+        {% empty %}
+            <div class="alert alert-warning text-center" role="alert">
+                暂无报名信息
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- <div class="container mt-5">
+    <h2 class="mb-4">已报名的活动</h2>
+    <div class="list-group">
+        {% for a in attend_list %}
+            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center shadow-sm mb-2">
+                <div>
+                    <h5 class="mb-1 text-multi-truncate">{{ a.act.title }}</h5>
+                    <p class="mb-1 text-muted text-muted text-multi-truncate">{{ a.act.content }}</p>
+                    <small class="text-success">报名人：{{ a.user.username }}</small>
+                </div>
+                <form action="{% url 'activity_manage:cancel_attend' act_id=a.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-outline-success btn-sm" value="不参加了">
+                </form>
+            </a>
+        {% empty %}
+            <div class="alert alert-warning text-center" role="alert">
+                暂无报名信息
+            </div>
+        {% endfor %}
+    </div>
+</div> -->
+{% endblock %}
+

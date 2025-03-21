@@ -1,0 +1,91 @@
+{% extends 'user_manage/base.html' %}
+
+{% block title %}
+    <title>登录</title>
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow-sm">
+      <div class="card-header bg-success text-white text-center">
+          <h1 class="h4 mb-0">欢迎注册</h1>
+      </div>
+
+      <div class="card-body">
+          {% if msg %}
+              <div class="alert alert-warning text-center" role="alert">
+                  {{ msg }}
+              </div>
+          {% endif %}
+
+          <form action="{% url 'user_manage:register' %}" method="post" class="needs-validation" novalidate>
+              {% csrf_token %}
+
+              <!-- 用户名 -->
+              <div class="mb-3">
+                  <label for="username" class="form-label">用户名</label>
+                  <input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名" required>
+              </div>
+
+              <!-- 密码 -->
+              <div class="mb-3">
+                  <label for="password" class="form-label">密码</label>
+                  <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码" required>
+              </div>
+
+              <!-- 确认密码 -->
+              <div class="mb-3">
+                  <label for="password2" class="form-label">确认密码</label>
+                  <input type="password" class="form-control" id="password2" name="password2" placeholder="请再次输入密码" required>
+              </div>
+
+              <!-- 用户类型 -->
+              <div class="mb-3">
+                  <label for="user_type" class="form-label">用户类型</label>
+                  <select class="form-select" id="user_type" name="user_type" required>
+                      <option selected value="1">志愿者</option>
+                      <option value="2">长者</option>
+                      <option value="3">长者家属</option>
+                      <option value="4">管理员</option>
+                  </select>
+              </div>
+
+              <!-- 邮箱 -->
+              <div class="mb-4">
+                  <label for="email" class="form-label">邮箱</label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="请输入邮箱" required>
+              </div>
+
+              <!-- 提交按钮 -->
+              <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-success btn-lg">注册</button>
+              </div>
+
+              <!-- 登录链接 -->
+              <div class="text-center mt-3">
+                  <a href="{% url 'user_manage:login' %}" class="text-decoration-none">已有账号？点击登录</a>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+
+<!-- <form  action="{% url 'user_manage:register' %}" method="post">
+  {% csrf_token %}
+  <input type="text" name="username" placeholder="用户名">
+  <input type="password" name="password" placeholder="密码">
+  <input type="password" name="password2" placeholder="确认密码">
+  <select name="user_type">
+    <option value="1">普通用户</option>
+    <option value="2">长者</option>
+    <option value="3">长者家属</option>
+    <option value="4">管理员</option>
+  </select>
+  <input type="email" name="email" placeholder="邮箱">
+  <a href="{% url 'user_manage:login' %}">已有账号？点击登录</a>
+  <input type="submit" value="注册">
+</form> -->
+{% endblock content %}

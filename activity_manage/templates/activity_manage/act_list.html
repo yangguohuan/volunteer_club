@@ -1,0 +1,42 @@
+{% extends 'user_manage/base.html' %}
+
+{% block title %}
+    <title>所有活动</title>
+{% endblock title %}
+
+
+{% block content %}
+
+<div class="container-fluid mt-5">
+  <div class="row g-3">
+      {% if act_list %}
+          {% for l in act_list %}
+              <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+                  <div class="card h-100 shadow-sm">
+                      <div class="ratio ratio-1x1">
+                          <img src="/{{ l.image }}" alt="{{ l.title }}" class="card-img-top">
+                      </div>
+
+                      <div class="card-body">
+                          <h5 class="card-title">{{ l.title }}</h5>
+                          <p class="card-text text-truncate" style="max-width: 100%;">{{ l.content }}</p>
+                          <p class="text-muted small mb-2">活动时间：{{ l.act_time|date:'20y年m月d日' }}</p>
+
+                          <a href="{% url 'activity_manage:attend_act' act_id=l.id %}" class="btn btn-success btn-sm" style="float: right;">前往报名</a>
+                      </div>
+                  </div>
+              </div>
+          {% endfor %}
+      {% else %}
+          <div class="col-12">
+              <div class="alert alert-warning text-center" role="alert">
+                  没有活动
+              </div>
+          </div>
+      {% endif %}
+  </div>
+</div>
+
+
+{% endblock content %}
+

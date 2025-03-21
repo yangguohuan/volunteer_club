@@ -1,0 +1,33 @@
+{% extends 'user_manage/base.html' %}
+
+{% block title %}
+    <title>活动详情</title>
+{% endblock title %}
+
+
+
+{% block content %}
+
+
+<div class="container mt-5">
+  <h1>修改活动</h1>
+  <form action="{% url 'activity_manage:change' a_id=a_id %}" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="title" class="form-label">活动标题</label>
+      <input type="text" class="form-control" id="title" name="title" value="{{ form.title }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="content" class="form-label">活动内容</label>
+      <textarea class="form-control" id="content" name="content" rows="5" required>{{ form.content }}</textarea>
+    </div>
+
+    <div class="mb-3 text-left">
+      <button type="submit" class="btn btn-success">修改</button>
+    </div>
+  </form>
+</div>
+
+
+{% endblock content %}

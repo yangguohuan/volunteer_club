@@ -1,0 +1,36 @@
+{% extends 'user_manage/base.html' %}
+
+{% block title %}
+    <title>首页</title>
+{% endblock title %}
+
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+      <div class="card p-4 shadow-sm">
+        <h1 class="text-center mb-4">志愿服务管理系统</h1>
+        <p class="text-muted text-center">包含 <strong>11 个模块</strong>，三十多个子模块</p>
+        <hr>
+        <p class="mb-0">
+          系统分为以下模块：
+        </p>
+        <ul class="list-group list-group-flush mt-2">
+          <li class="list-group-item">用户管理模块</li>
+          <li class="list-group-item">活动管理模块</li>
+          <li class="list-group-item">报名系统模块</li>
+          <li class="list-group-item">反馈系统模块</li>
+          <li class="list-group-item">统计与报告模块</li>
+          <li class="list-group-item">通知模块</li>
+          <li class="list-group-item">志愿者培训模块</li>
+          <li class="list-group-item">志愿者评分系统</li>
+          <li class="list-group-item">交流与社区模块</li>
+          <li class="list-group-item">数据分析与报告生成</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

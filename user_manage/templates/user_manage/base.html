@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.3-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.3-dist/css/style.css' %}">
+  {% block title %}
+    <title>基本页面</title>
+  {% endblock title %}
+  <style>
+      #img {
+        width:50px;
+        margin-right:20px;
+      }
+</style>
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <!-- Logo展示 -->
+    <img src="{% static 'media/logo.png' %}" alt="logo" class="img-fluid img-thumbnail rounded" id="img" style="max-width: 50px;">
+    <a class="navbar-brand" href="{% url 'user_manage:index' %}" style="font-size: 36px;">志愿服务管理系统</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <!-- 首页链接 -->
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'index' %} active {% endif %}" href="{% url 'user_manage:index' %}">首页</a>
+        </li>
+        <!-- 活动中心链接 -->
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'act_list' %} active {% endif %}" href="{% url 'activity_manage:act_list' %}">活动中心</a>
+        </li>
+        <!-- 其他链接 -->
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'attend_list' %} active {% endif %}" href="{% url 'activity_manage:attend_list' %}">报名中心</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'message_list' %} active {% endif %}" href="{% url 'message_board:message_list' %}">消息通知</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'community' %} active {% endif %}" href="#">交流与社区</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'data_center' %} active {% endif %}" href="#">数据中心</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'teach_center' %} active {% endif %}" href="#">培训中心</a>
+        </li>
+      </ul>
+
+      <!-- 登录注册 -->
+      <ul class="navbar-nav ms-auto">
+        {% if request.user.is_authenticated %}
+        <!-- 认证 -->
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'user_info' %} active {% endif %}" href="{% url 'user_manage:user_info' %}">{{ request.user }}</a>
+        </li>
+          {% if request.user.username == 'admin' %}
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'admin_list' %} active {% endif %}" href="{% url 'activity_manage:admin_list' %}">活动管理中心</a>
+        </li>
+          {% endif %}
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'logout' %} active {% endif %}" href="{% url 'user_manage:logout' %}">退出</a>
+        </li>
+        {% else %}
+        <!-- 登录 -->
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'login' %} active {% endif %}" href="{% url 'user_manage:login' %}">登录</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'register' %} active {% endif %}" href="{% url 'user_manage:register' %}">注册</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+<!--  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">-->
+<!--    <div class="container-fluid">-->
+<!--      <img src="{% static 'media/logo.png' %}" alt="logo" class="img-fluid img-thumbnail rounded" id="img" style="max-width: 50px;">-->
+<!--      <a class="navbar-brand" href="{% url 'user_manage:index' %}" style="font-size: 36px;">志愿服务管理系统</a>-->
+<!--      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">-->
+<!--        <span class="navbar-toggler-icon"></span>-->
+<!--      </button>-->
+<!--      <div class="collapse navbar-collapse" id="navbarNav">-->
+<!--        <ul class="navbar-nav">-->
+<!--          &lt;!&ndash; Home Link &ndash;&gt;-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link {% if request.resolver_match.url_name == 'index' %} active {% endif %}" href="{% url 'user_manage:index' %}">首页</a>-->
+<!--          </li>-->
+<!--          &lt;!&ndash; Activity Center Link &ndash;&gt;-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link {% if request.resolver_match.url_name == 'act_list' %} active {% endif %}" href="{% url 'activity_manage:act_list' %}">活动中心</a>-->
+<!--          </li>-->
+<!--          &lt;!&ndash; Add Activity Link &ndash;&gt;-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link {% if request.resolver_match.url_name == 'add' %} active {% endif %}" href="{% url 'activity_manage:add' %}">添加活动</a>-->
+<!--          </li>-->
+<!--          &lt;!&ndash; Other Links &ndash;&gt;-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link {% if request.resolver_match.url_name == 'attend_center' %} active {% endif %}" href="#">报名中心</a>-->
+<!--          </li>-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link {% if request.resolver_match.url_name == 'message' %} active {% endif %}" href="#">消息通知</a>-->
+<!--          </li>-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link {% if request.resolver_match.url_name == 'community' %} active {% endif %}" href="#">交流与社区</a>-->
+<!--          </li>-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link {% if request.resolver_match.url_name == 'data_center' %} active {% endif %}" href="#">数据中心</a>-->
+<!--          </li>-->
+
+<!--          &lt;!&ndash; Authenticated User Links &ndash;&gt;-->
+<!--          {% if request.user.is_authenticated %}-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link {% if request.resolver_match.url_name == 'user_info' %} active {% endif %}" href="{% url 'user_manage:user_info' %}">{{ request.user }}</a>-->
+<!--          </li>-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link {% if request.resolver_match.url_name == 'logout' %} active {% endif %}" href="{% url 'user_manage:logout' %}">退出</a>-->
+<!--          </li>-->
+<!--          {% else %}-->
+<!--          &lt;!&ndash; Guest User Links &ndash;&gt;-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link {% if request.resolver_match.url_name == 'login' %} active {% endif %}" href="{% url 'user_manage:login' %}">登录</a>-->
+<!--          </li>-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link {% if request.resolver_match.url_name == 'register' %} active {% endif %}" href="{% url 'user_manage:register' %}">注册</a>-->
+<!--          </li>-->
+<!--          {% endif %}-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </nav>-->
+    {% block content %}
+    {% endblock %}
+
+
+
+     <script src="{% static 'bootstrap-5.3.3-dist/js/jquery.min.js' %}"></script>
+    <script src="{% static '/bootstrap-5.3.3-distjs/bootstrap.min.js' %}"></script>
+</body>
+</html>

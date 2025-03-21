@@ -1,0 +1,86 @@
+{% extends 'user_manage/base.html' %}
+{% block title %}
+    <title>报名页面</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            <h1 class="h4 mb-0">活动报名</h1>
+        </div>
+
+        <div class="card-body">
+            <div class="text-center mb-3">
+                <img src="/{{ act_info.image }}" alt="活动图片" class="img-fluid rounded" style="width: 300px; height: 300px; object-fit: cover; border: 1px solid #ddd;">
+            </div>
+
+            <!-- 活动信息 -->
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>活动标题：</strong>{{ act_info.title }}</li>
+                <li class="list-group-item"><strong>活动内容：</strong>{{ act_info.content }}</li>
+                <li class="list-group-item"><strong>活动时间：</strong>{{ act_info.act_time|date:'Y-m-d' }}</li>
+            </ul>
+
+            <!-- 报名按钮 -->
+            <div class="text-center mt-4">
+                {% if had_attend == 1 %}
+                    <button class="btn btn-secondary btn-lg w-100">已报名</button>
+                {% else %}
+                <form action="{% url 'activity_manage:attend_act' act_id=act_info.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success btn-lg w-100">立即报名</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- 参与者 -->
+    <div class="card shadow-sm mt-4">
+        <div class="card-header text-black-50" style="font-size: 16px;">
+            <p class="mb-0">参与者</p>
+        </div>
+        <div class="card-body">
+                {% for a in user_list %}
+                    <span class="badge bg-secondary">{{ a.user.username }}</span>
+                {% empty %}
+                    <li class="list-group-item">暂无参与者</li>
+                {% endfor %}
+        </div>
+    </div>
+
+    
+    <div class="card shadow-sm mt-4">
+        <form action="{% url 'message_board:message_board' act_id=act_info.id %}" method="post" class="p-3">
+            {% csrf_token %}
+            <!-- 评论框 -->
+            <textarea class="form-control text-muted" rows="3" placeholder="请输入留言内容" name="message_act_board"></textarea>
+            <button type="submit" class="btn btn-sm btn-success mt-1" style="float:right;">提交留言</button>
+        </form>
+    </div>
+
+    <!-- 显示留言 -->
+    <div class="card shadow-sm mt-4">
+        <div class="card-header text-black-50">
+            <h2 class="h5 mb-0">留言列表</h2>
+        </div>
+        <div class="card-body">
+            {% for m in message_list %}
+                <div class="mb-3 p-3 border rounded">
+                    <p class="mb-1">
+                        <strong>{{ m.user.username }}</strong> <small class="text-muted" style="float: right;">{{ m.message_time|date:"Y-m-d" }}</small>
+                    </p>
+                    <p class="mb-0">{{ m.message }}</p>
+                </div>
+            {% empty %}
+                <p class="text-center text-muted">暂无留言，快来抢沙发吧！</p>
+            {% endfor %}
+        </div>
+    </div>
+
+
+</div>
+
+
+{% endblock content %}

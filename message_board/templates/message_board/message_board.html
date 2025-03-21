@@ -1,0 +1,40 @@
+{% extends 'user_manage/base.html' %}
+
+{% block title %}
+    <title>留言板</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container-fluid mt-5">
+    <h2 class="mb-4">留言列表</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle shadow-sm">
+            <thead class="table-success">
+                <tr>
+                    <th scope="col">留言内容</th>
+                    <th scope="col">留言时间</th>
+                    <th scope="col">留言者</th>
+                    <th scope="col">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for l in message_list %}
+                    <tr>
+                        <td>{{ l.message }}</td>
+                        <td>{{ l.message_time|date:'Y-m-d' }}</td>
+                        <td>{{ l.message_user }}</td>
+                        <td>
+                            <a href="{% url 'message_board:delete_message' l_id=l.id %}" class="btn btn-danger btn-sm">删除</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">没有留言</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}

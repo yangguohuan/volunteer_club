@@ -1,0 +1,52 @@
+{% extends 'user_manage/base.html' %}
+
+{% block title %}
+  <title> 活动管理 </title>
+{% endblock title %}
+
+{% block content %}
+
+
+
+<div class="container-fluid mt-5 w-100">
+  <h2>活动列表</h2>
+
+  <a href="{% url 'activity_manage:add' %}" class="btn btn-success">添加活动</a>
+  <a href="#" class="btn btn-success">输出为Excel</a>
+  <br><br>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th style="width: 20px;"  scope="col">ID</th>
+        <th scope="col">活动标题</th>
+        <th scope="col">活动内容</th>
+        <th style="width: 130px;" scope="col">截止日期</th>
+        <th style="width: 130px;" scope="col">添加日期</th>
+        <th style="width: 130px;" scope="col">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {% for a in act_list %}
+      <tr>
+        <td>{{ a.id }}</td>
+        <td>{{ a.title }}</td>
+        <td>{{ a.content }}</td>
+        <td>{{ a.act_time|date:"Y-m-d" }}</td>
+        <td>{{ a.date_added|date:"Y-m-d" }}</td>
+        <td>
+          <a href="{% url 'activity_manage:change' a_id=a.id %}" class="btn btn-success btn-sm">修改</a>
+          <a href="{% url 'activity_manage:delete' a_id=a.id %}" class="btn btn-secondary btn-sm">删除</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" class="text-center">没有活动</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+{% endblock content %}
